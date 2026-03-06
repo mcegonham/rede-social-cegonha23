@@ -1,0 +1,70 @@
+<style>
+h1{color:#8B008B; text-align:center;}
+p{text-align:center;}
+h2{color:green; text-align:center;}
+</style>
+
+<!-- O GATILHO: Botão de Transmutação Quântica -->
+<button id="cegonha-trigger" onclick="transmutaLink()" style="
+    position: fixed; 
+    bottom: 20px; 
+    right: 20px; 
+    padding: 12px 24px; 
+    background: rgba(0,0,0,0.8); 
+    color: orange; 
+    border: 1px solid orange; 
+    border-radius: 4px; 
+    cursor: pointer; 
+    font-family: monospace; 
+    font-size: 12px; 
+    letter-spacing: 2px; 
+    z-index: 9999;
+    transition: 0.3s;">
+    ⚡ TRANSMUTAR ADN DIGITAL
+</button>
+
+<script>
+/**
+ * A FUNÇÃO SAGRADA: 
+ * Captura todo o estado atual do teu código (HTML/CSS/JS) 
+ * e converte-o numa URL Base64 auto-executável.
+ */
+function transmutaLink() {
+    try {
+        // 1. Captura o código completo da página
+        const codigoFonte = document.documentElement.outerHTML;
+        
+        // 2. Codifica em Base64 (suporta caracteres especiais/acentos com b64EncodeUnicode)
+        const b64 = btoa(encodeURIComponent(codigoFonte).replace(/%([0-9A-F]{2})/g,
+            function(match, p1) {
+                return String.fromCharCode('0x' + p1);
+            }));
+            
+        const dataUrl = 'data:text/html;base64,' + b64;
+
+        // 3. Copia para o Clipboard
+        navigator.clipboard.writeText(dataUrl).then(() => {
+            // Efeito visual no botão ao copiar
+            const btn = document.getElementById('cegonha-trigger');
+            const originalText = btn.innerText;
+            btn.innerText = "✨ CÓDIGO DA ALMA COPIADO!";
+            btn.style.background = "orange";
+            btn.style.color = "black";
+            
+            setTimeout(() => {
+                btn.innerText = originalText;
+                btn.style.background = "rgba(0,0,0,0.8)";
+                btn.style.color = "orange";
+            }, 3000);
+            
+            console.log("Cegonha Primordial: Link gerado com sucesso.");
+        });
+    } catch (err) {
+        console.error("Erro na transmutação:", err);
+        alert("A Cegonha encontrou uma interferência na matriz.");
+    }
+}
+</script>
+<h1>Minha alma meu espírito arte <br> Partilhado com Agnetha Fältskog</h1>
+<p><img src="https://i.pinimg.com/736x/ea/14/df/ea14df97d641160776cda867e102bd66.jpg" width="500" heigth="400"></p>
+<h2>Minha musica preferida<br><a href="https://youtu.be/xsMouznJvuU?list=RDxsMouznJvuU">ABBA - The Winner Takes It All<br><img src="https://i.pinimg.com/736x/32/46/99/3246997d19f8c6f7f9e8d6825e280dfa.jpg" width="250" heigth="200"></a></h2>
