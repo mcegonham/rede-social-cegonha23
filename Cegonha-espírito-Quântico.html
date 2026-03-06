@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>AETHEREA - Cegonha Primordial</title>
+    <style>
+        body, html { margin: 0; padding: 0; overflow: hidden; background: #050505; color: white; font-family: 'Inter', sans-serif; }
+        h1 { 
+            color: orange; 
+            text-align: center; 
+            position: absolute; 
+            width: 100%; 
+            font-weight: 100; 
+            letter-spacing: 5px;
+            text-shadow: 0 0 15px rgba(255, 165, 0, 0.4);
+            z-index: 10;
+        }
+        canvas { display: block; filter: blur(0.5px) contrast(1.2); }
+        
+        #ui {
+            position: absolute; top: 80px; left: 20px; pointer-events: none;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+            z-index: 10;
+        }
+        .stats { font-size: 0.8rem; letter-spacing: 2px; opacity: 0.7; margin-bottom: 5px; }
+        .brand { font-size: 1.5rem; font-weight: 100; margin-bottom: 10px; color: #fff; }
+
+        .spirit-link {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 15px 30px;
+            background: rgba(255, 165, 0, 0.1);
+            border: 1px solid orange;
+            color: orange;
+            text-decoration: none;
+            border-radius: 50px;
+            font-size: 0.7rem;
+            letter-spacing: 3px;
+            cursor: pointer;
+            transition: all 0.5s ease;
+            z-index: 100;
+            backdrop-filter: blur(5px);
+        }
+        .spirit-link:hover {
+            background: orange;
+            color: black;
+            box-shadow: 0 0 30px orange;
+        }
+    </style>
+</head>
+<body>
+
+<h1>CEGONHA ESPÍRITO QUÂNTICO</h1>
+
+<div id="ui">
+    <div class="brand">AETHEREA CORE</div>
+    <div class="stats">EIXO X: <span id="valX">0</span></div>
+    <div class="stats">EIXO Y: <span id="valY">0</span></div>
+    <div class="stats">ESTADO: <span id="status">SINGULARIDADE</span></div>
+</div>
+
+<a id="net-link" class="spirit-link" onclick="gerarSuperLink()">⚡ GERAR LINK VITALÍCIO</a>
+
+<script>
+const canvas = document.createElement('canvas');
+const ctx = canvas.getContext('2d');
+document.body.appendChild(canvas);
+
+let width, height;
+let particles = [];
+const mouse = { x: -1000, y: -1000 };
+
+function resize() {
+    width = canvas.width = window.innerWidth;
+    height = canvas.height = window.innerHeight;
+}
+
+window.addEventListener('resize', resize);
+window.addEventListener('mousemove', e => {
+    mouse.x = e.clientX;
+    mouse.y = e.clientY;
+    document.getElementById('valX').innerText = Math.round(e.clientX - width/2);
+    document.getElementById('valY').innerText = Math.round(height/2 - e.clientY);
+});
+
+class Espirito {
+    constructor() {
+        this.reset();
+    }
+    reset() {
+        this.x = Math.random() * width;
+        this.y = Math.random() * height;
+        this.size = Math.random() * 2 + 0.5;
+        this.speedX = (Math.random() - 0.5) * 0.8;
+        this.speedY = (Math.random() - 0.5) * 0.8;
+        this.lumens = Math.random();
+    }
+    update() {
+        this.x += this.speedX;
+        this.y += this.speedY;
+
+        const dx = mouse.x - this.x;
+        const dy = mouse.y - this.y;
+        const dist = Math.sqrt(dx*dx + dy*dy);
+
+        if (dist < 200) {
+            this.x += dx * 0.03;
+            this.y += dy * 0.03;
+            this.lumens = 1;
+        } else {
+            this.lumens *= 0.98;
+        }
+
+        if (this.x < 0 || this.x > width || this.y < 0 || this.y > height) this.reset();
+    }
+    draw() {
+        ctx.fillStyle = `rgba(255, 165, 0, ${this.lumens + 0.1})`;
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+        ctx.fill();
+    }
+}
+
+function init() {
+    resize();
+    for (let i = 0; i < 150; i++) particles.push(new Espirito());
+    animate();
+}
+
+function animate() {
+    ctx.fillStyle = 'rgba(5, 5, 5, 0.15)';
+    ctx.fillRect(0, 0, width, height);
+
+    // Eixos Quânticos
+    ctx.strokeStyle = 'rgba(255, 165, 0, 0.03)';
+    ctx.beginPath();
+    ctx.moveTo(width/2, 0); ctx.lineTo(width/2, height);
+    ctx.moveTo(0, height/2); ctx.lineTo(width, height/2);
+    ctx.stroke();
+
+    particles.forEach(p => {
+        p.update();
+        p.draw();
+    });
+
+    // Aura da Cegonha
+    const pulse = Math.sin(Date.now() * 0.002) * 15;
+    const grad = ctx.createRadialGradient(mouse.x, mouse.y, 0, mouse.x, mouse.y, 150 + pulse);
+    grad.addColorStop(0, 'rgba(255, 140, 0, 0.2)');
+    grad.addColorStop(1, 'rgba(0, 0, 0, 0)');
+    ctx.fillStyle = grad;
+    ctx.fillRect(0,0, width, height);
+
+    requestAnimationFrame(animate);
+}
+
+function gerarSuperLink() {
+    const htmlAtual = document.documentElement.outerHTML;
+    const blob = new Blob([htmlAtual], {type: 'text/html'});
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const dataUrl = e.target.result;
+        navigator.clipboard.writeText(dataUrl).then(() => {
+            alert("✨ CÓDIGO DA ALMA COPIADO!\nCola no teu navegador para renascer.");
+        });
+    };
+    reader.readAsDataURL(blob);
+}
+
+init();
+</script>
+</body>
+</html>
