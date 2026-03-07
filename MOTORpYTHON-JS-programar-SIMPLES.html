@@ -1,0 +1,175 @@
+<html>
+<style>
+blue{color:blue;}
+.escrever{color:red;}
+h1{color:orange; text-align:center;}
+</style>
+<h1>Motor js python print</h1>
+<p id="log-terminal"></p>
+<script>
+const print = (...args) => {
+  const logger = document.getElementById('log-terminal');
+  
+  const output = args.map(arg => {
+    // Se for BigInt, converte para String (porque JSON.stringify não gosta de BigInt)
+    if (typeof arg === 'bigint') return arg.toString();
+    if (typeof arg === 'object') return `<pre>${JSON.stringify(arg, null, 2)}</pre>`;
+    return arg;
+  }).join(' ');
+
+  logger.innerHTML += `<div style="margin-bottom: 10px; word-wrap: break-word;">${output}</div>`;
+};
+print('<h2 style="color:#8B0000; text-align:center; font-size:23px;">Aqui acaba o MOTOR python js e começa a programação PRINT js</h2>')
+// A CONTA "IMPOSSÍVEL":
+//Inserir o N nos números da conta
+// Usamos BigInt (n) para JS não desistir e dar Infinity
+print(23n ** 234n); 
+
+// Podes até misturar com strings e HTML
+print(`<b>Resultado Gigante:</b> ${23n ** 234n}`);
+print('<h2 style="color:green; text-align:center;">Motor print JS<br><blue>A minha musica preferida</blue><br><div class="escrever">Sou poeta no ser.<br>Realidade no viver,<br>pensando no escrever!<br>Assim que deus me ensinou a fé do condizer.<br>Sou poeta no ser.<br><img src="https://cdn.esbrasil.com.br/wp-content/uploads/2023/05/DOMIGOS-MARTINS_PEDRA-AZUL_Tadeu_Bianconigoverno-do-Estado.jpg" width="500" height="400"></div></h2>');
+// 1. PRINT DAS IMAGENS (Uma linha: Gera 5 fotos aleatórias)
+print(`<div style="display:flex; gap:10px; overflow-x:auto;">${[10,20,30,40,50].map(id => `<img src="https://picsum.photos{id}/150" style="border-radius:10px">`).join('')}</div>`);
+
+// 1. PRINT IMAGENS (Link direto um a um dentro da DIV)
+print(`
+  <div style="display:flex; gap:15px; overflow-x:auto; padding:20px; background:#222; border-radius:15px;">
+    <img src="https://media01.stockfood.com/largepreviews/MjIwNjU2NjYwOA==/71179568-Christus-der-Erloeser-Statue-im-Morgengrauen-Rio-de-Janeiro-Brasilien.jpg" style="border-radius:10px; border:2px solid orange;">
+    <img src="https://tse1.explicit.bing.net/th/id/OIP.5zW_RsKTgkKYtKhJCkF7LAHaGP?rs=1&pid=ImgDetMain&o=7&rm=3" style="border-radius:10px; border:2px solid orange;">
+    <img src="https://mir-s3-cdn-cf.behance.net/user/276/223504174002951.651b06831e0c6.jpg" style="border-radius:10px; border:2px solid orange;">
+    <img src="https://hackology.co.uk/wp-content/uploads/2013/11/img01.jpg?w=452&h=341" style="border-radius:10px; border:2px solid orange;">
+<img src="https://image.brigitte.de/13363336/t/_C/v1/w960/r1.5/-/frau-im-universum.jpg" style="border-radius:10px; border:2px solid orange;">
+  </div>
+`);
+
+// 2. PRINT TRANSIÇÃO INFINITA (CSS direto na veia)
+print(`
+  <style>
+    @keyframes arcoiris {
+      0% { background: #ff0000; }
+      20% { background: #ff8800; }
+      40% { background: #ffff00; }
+      60% { background: #00ff00; }
+      80% { background: #0000ff; }
+      100% { background: #ff0000; }
+    }
+    .barra-infinita {
+      width: 100%;
+      height: 60px;
+      margin-top: 20px;
+      border-radius: 30px;
+      animation: arcoiris 10s infinite linear;
+      box-shadow: 0 0 20px rgba(255,255,255,0.2);
+    }
+  </style>
+  <div class="barra-infinita"></div>
+`);
+// --- PRINT: GRÁFICO DE BARRAS DINÂMICO ---
+// Definimos os dados: Nome e Percentagem
+const dados = [
+  { label: 'Python', valor: 95, cor: '#3776ab' },
+  { label: 'JS Motor', valor: 88, cor: 'orange' },
+  { label: 'HTML/CSS', valor: 75, cor: '#e34f26' }
+];
+
+print(`
+  <div style="background: #222; padding: 20px; border-radius: 15px; margin-top: 20px; border: 1px solid #444;">
+    <h3 style="color:white; margin-top:0;">📊 Performance do Motor</h3>
+    
+    ${dados.map(item => `
+      <div style="margin-bottom: 15px;">
+        <div style="display:flex; justify-content:space-between; margin-bottom:5px; font-size:14px;">
+          <span>${item.label}</span>
+          <span>${item.valor}%</span>
+        </div>
+        <!-- A BARRA: A largura (width) é o valor da variável -->
+        <div style="background: #444; width: 100%; height: 12px; border-radius: 6px; overflow: hidden;">
+          <div style="background: ${item.cor}; width: ${item.valor}%; height: 100%; transition: width 1s ease-in-out;"></div>
+        </div>
+      </div>
+    `).join('')}
+  </div>
+`);
+// 1. TABELA: DATA E INFOS DO SISTEMA
+const agora = new Date();
+print(`
+  <table style="width:100%; border-collapse: collapse; background: #222; color: white; margin-bottom: 20px;">
+    <tr style="background: #444;">
+      <th style="padding: 10px; border: 1px solid #555;">Data de Hoje</th>
+      <th style="padding: 10px; border: 1px solid #555;">Hora Local</th>
+      <th style="padding: 10px; border: 1px solid #555;">Status</th>
+    </tr>
+    <tr>
+      <td style="padding: 10px; border: 1px solid #555; text-align: center;">${agora.toLocaleDateString('pt-PT')}</td>
+      <td style="padding: 10px; border: 1px solid #555; text-align: center;">${agora.toLocaleTimeString('pt-PT')}</td>
+      <td style="padding: 10px; border: 1px solid #555; text-align: center; color: #0f0;">● Online</td>
+    </tr>
+  </table>
+`);
+
+// 2. TABELA: BOLSA DE VALORES (NYSE / NASDAQ - Dados Ref: 06/03/2026)
+print(`
+  <table style="width:100%; border-collapse: collapse; background: #1a1a1a; color: #0f0; font-family: monospace;">
+    <caption style="color: orange; padding: 10px; font-weight: bold;">📈 WALL STREET - NEW YORK</caption>
+    <tr style="border-bottom: 2px solid orange;">
+      <th style="text-align: left; padding: 8px;">Índice / Ativo</th>
+      <th style="text-align: right; padding: 8px;">Último Valor</th>
+      <th style="text-align: right; padding: 8px;">Variação</th>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">Nasdaq (NDAQ)</td>
+      <td style="padding: 8px; text-align: right;">$88.43</td>
+      <td style="padding: 8px; text-align: right; color: #0f0;">+0.18%</td>
+    </tr>
+    <tr>
+      <td style="padding: 8px;">E-mini NASDAQ 100</td>
+      <td style="padding: 8px; text-align: right;">22,410.00</td>
+      <td style="padding: 8px; text-align: right; color: #0f0;">Estável</td>
+    </tr>
+  </table>
+`);
+
+// 3. TABELA: WEBCAMS DO MUNDO (Links Diretos e Vivos)
+print(`
+  <div style="margin-top: 20px;">
+    <h3 style="color: blue;">🌍 JANELAS PARA O MUNDO (Webcams Live)</h3>
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 15px;">
+      
+      <!-- WEBCAM 1: RIO DE JANEIRO (VIA CAMSTREAMER) -->
+      <div style="background: #333; border-radius: 8px; padding: 10px;">
+        <small>Rio de Janeiro - Barcos</small>
+        <iframe src="https://www.skylinewebcams.com" 
+                style="width:100%; height:180px; border:none; border-radius:5px;"></iframe>
+      </div>
+
+      <!-- WEBCAM 2: TIMES SQUARE NYC (LINK EARTHCAM) -->
+      <div style="background: #333; border-radius: 8px; padding: 10px;">
+        <small>New York - Times Square</small>
+        <div style="width:100%; height:180px; background:#000; display:flex; align-items:center; justify-content:center;">
+           <a href="https://www.earthcam.com" target="_blank" style="color:orange; text-decoration:none;">📺 Abrir Live NYC</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+`);
+// 1. Criamos a lógica de sorteio numa função simples
+const gerarCodigo = () => {
+  const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+  const novoCodigo = Array.from({length: 10}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+  document.getElementById('display-codigo').innerText = novoCodigo;
+};
+
+// 2. Imprimimos a interface com o botão
+print(`
+  <div style="background:#000; color:#0f0; padding:20px; border-radius:10px; font-family:monospace; border:1px solid #444; text-align:center;">
+    <blue>GERADOR DE ACESSO ALEATÓRIO</blue><br><br>
+    <h2 id="display-codigo" style="color:gold; font-size:30px; margin:10px 0;">${"A1B2C3D4E5"}</h2>
+    
+    <button onclick="gerarCodigo()" style="background:orange; color:black; border:none; padding:10px 20px; font-weight:bold; cursor:pointer; border-radius:5px;">
+      🔄 GERAR NOVO CÓDIGO
+    </button>
+  </div>
+`);
+</script>
+</html>
