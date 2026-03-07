@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Motor JS Python Print v5.0 - Matrix Edition</title>
+    <style>
+        body { background: #0a0a0a; color: #d0d0d0; font-family: 'Courier New', monospace; margin: 0; padding: 20px; }
+        #log-terminal { max-width: 1100px; margin: 0 auto; background: #111; padding: 30px; border-radius: 10px; border: 1px solid #333; box-shadow: 0 0 50px rgba(0,0,0,1); }
+        blue { color: #0088ff; font-weight: bold; }
+        .escrever { color: #ff3333; border-left: 2px solid #ff3333; padding-left: 15px; margin: 20px 0; }
+        h1 { color: orange; text-align: center; letter-spacing: 5px; border-bottom: 1px solid #333; padding-bottom: 10px; }
+        pre { background: #000; padding: 15px; color: #0f0; border-radius: 5px; border: 1px solid #222; overflow-x: auto; font-size: 13px; }
+        table { width: 100%; border-collapse: collapse; margin: 20px 0; background: #151515; }
+        th, td { padding: 12px; border: 1px solid #222; text-align: center; }
+        th { color: orange; background: #1a1a1a; }
+        .barra-infinita { width: 100%; height: 5px; animation: arcoiris 5s infinite linear; margin: 20px 0; }
+        @keyframes arcoiris { 0% { background: red; } 50% { background: blue; } 100% { background: red; } }
+        .btn-acao { background: orange; color: #000; border: none; padding: 10px 20px; font-weight: bold; cursor: pointer; border-radius: 3px; margin: 5px; }
+green{color:green;}
+    </style>
+</head>
+<body>
+
+<div id="log-terminal">
+    <h1>MOTOR PRINT JS</h1>
+    <div id="display-area"></div>
+</div>
+
+<!-- BOTÃO DE TRANSMUTAÇÃO (O TEU CÓDIGO SAGRADO) -->
+<button id="cegonha-trigger" onclick="transmutaLink()" style="position: fixed; bottom: 20px; right: 20px; padding: 12px 24px; background: rgba(0,0,0,0.9); color: orange; border: 1px solid orange; border-radius: 4px; cursor: pointer; font-family: monospace; font-size: 11px; z-index: 9999; transition: 0.3s;">
+    ⚡ TRANSMUTAR ADN DIGITAL
+</button>
+
+<script>
+// --- MOTOR CORE ---
+const print = (...args) => {
+  const logger = document.getElementById('display-area');
+  const output = args.map(arg => {
+    if (typeof arg === 'bigint') return `<b style="color:gold;">${arg.toString()}</b>`;
+    if (typeof arg === 'object') return `<pre>${JSON.stringify(arg, null, 2)}</pre>`;
+    return arg;
+  }).join(' ');
+  logger.innerHTML += `<div style="margin-bottom: 25px;">${output}</div>`;
+};
+//FIM DO MOTOR principio do programar
+
+//Primeira tag PRINT function
+print('<h1 style="color:red;">Escolher ficheiro html do pc<br> e copiar e abrir no link gerado no navegador<br><green>SACA TUDO NA WEB<green></h1>');
+// --- FUNÇÃO 1: LER FICHEIROS DO PC (O PODER DO SISTEMA) ---
+const lerArquivoLocal = (event) => {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        print(`<h3>📂 FICHEIRO LIDO: ${file.name}</h3>`, `<pre style="color:cyan;">${e.target.result}</pre>`);
+    };
+    reader.readAsText(file);
+};
+
+// --- FUNÇÃO 2: TRANSMUTAR BASE64 (O TEU CÓDIGO) ---
+function transmutaLink() {
+    try {
+        const codigoFonte = document.documentElement.outerHTML;
+        const b64 = btoa(unescape(encodeURIComponent(codigoFonte))); // Versão compatível universal
+        const dataUrl = 'data:text/html;base64,' + b64;
+        navigator.clipboard.writeText(dataUrl).then(() => {
+            const btn = document.getElementById('cegonha-trigger');
+            btn.innerText = "✨ CÓDIGO COPIADO!";
+            setTimeout(() => btn.innerText = "⚡ TRANSMUTAR ADN DIGITAL", 3000);
+        });
+    } catch (err) { alert("Erro na matriz Base64."); }
+}
+
+// --- EXECUÇÃO DO CONTEÚDO ---
+
+print(`<blue>SISTEMA PRONTO. AGUARDANDO INPUTS...</blue>`);
+
+// INPUT PARA LER FICHEIROS
+print(`
+    <div style="background:#222; padding:15px; border-radius:5px; border:1px dashed orange;">
+        <blue>🔌 MÓDULO DE LEITURA DE DISCO:</blue><br><br>
+        <input type="file" id="fileInput" onchange="lerArquivoLocal(event)" style="color:orange;">
+    </div>
+`);
+
+// CONTA GIGANTE
+print("<b>CÁLCULO CIENTÍFICO (BigInt):</b>", 23n ** 234n);
+
+// POESIA E IMAGEM
+print(`
+    <div style="text-align:center;">
+        <div class="escrever">Sou poeta no ser. Realidade no viver...</div>
+        <img src="https://blogdobrunotavares.files.wordpress.com/2017/11/nova-terra1.jpg?w=768" style="width:100%; max-width:400px; border:1px solid #444;"><img src="https://tse2.mm.bing.net/th/id/OIP.a_dW5V0TZnqhnYqql7TueAHaEK?rs=1&pid=ImgDetMain&o=7&rm=3" style="width:100%; max-width:400px; border:1px solid #444;"><img src="https://intiaudiovisual.com/wp-content/uploads/2023/03/indigo-color-significado.jpg" style="width:100%; max-width:400px; border:1px solid #444;">vv<img src="https://lh7-us.googleusercontent.com/b6ACUW4GTzzu4YMjzJq9vQCT_JN_bTxCwpmgMU-4Y2K3GBGr5wq1tYTJasKoj50sQ-W73uqBKH0El2Iof5UfNMbzBTjB_vZwq9ARHJxCrdinz70dR4dohbAZTJ6xwVXO4sYSdf3e2lCPnMH8csQhOMY" style="width:100%; max-width:400px; border:1px solid #444;">
+    </div>
+`);
+
+// GALERIA CORRIGIDA
+print(`<div style="display:flex; gap:10px; overflow-x:auto;">${[10,20,30,40,50].map(id => `<img src="https://picsum.photos{id}/150" style="border-radius:5px;">`).join('')}</div>`);
+
+// TRANSIÇÃO
+print(`<div class="barra-infinita"></div>`);
+
+// TABELAS FINANCEIRAS
+print(`
+    <table>
+        <tr><th>Ticker</th><th>Preço</th><th>Variação</th></tr>
+        <tr><td>NDAQ (NASDAQ)</td><td>$88.43</td><td style="color:#0f0;">+0.18%</td></tr>
+    </table>
+`);
+
+// GERADOR DE ACESSO
+const gerarCodigo = () => {
+  const chars = "ABC123XYZ";
+  document.getElementById('display-codigo').innerText = Array.from({length: 8}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+};
+
+print(`
+  <div style="background:#000; padding:15px; border:1px solid #333; text-align:center;">
+    <h2 id="display-codigo" style="color:gold;">A1B2C3D4</h2>
+    <button class="btn-acao" onclick="gerarCodigo()">🔄 GERAR NOVO TOKEN</button>
+  </div>
+`);
+</script>
+</body>
+</html>
