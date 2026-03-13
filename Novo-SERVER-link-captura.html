@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADN Digital - Agnetha & ABBA</title>
+    <style>
+        :root {
+            --primary: #8B008B;
+            --accent: #ff8c00;
+            --glass: rgba(255, 255, 255, 0.1);
+        }
+
+        body {
+            background: #0a0a0a;
+            color: #fff;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            overflow-x: hidden;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+        }
+
+        /* Canvas de Fundo (Efeito Matrix/Espaço) */
+        #canvas-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+        }
+
+        .container {
+            background: var(--glass);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin: 40px 20px;
+            text-align: center;
+            max-width: 600px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+        }
+
+        h1 { color: var(--primary); text-shadow: 0 0 15px var(--primary); font-size: 1.8rem; }
+        h2 { color: #4CAF50; margin-top: 30px; }
+        
+        .main-img {
+            width: 100%;
+            max-width: 500px;
+            border-radius: 15px;
+            transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid var(--primary);
+        }
+
+        .main-img:hover { transform: scale(1.03) rotate(1deg); }
+
+        .music-link {
+            text-decoration: none;
+            display: inline-block;
+            transition: 0.3s;
+        }
+
+        .music-img {
+            width: 250px;
+            border-radius: 10px;
+            margin-top: 15px;
+            filter: grayscale(30%);
+            transition: 0.3s;
+        }
+
+        .music-link:hover .music-img { filter: grayscale(0%); box-shadow: 0 0 20px #4CAF50; }
+
+        /* Super Botão Avançado */
+        #cegonha-trigger {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            padding: 15px 30px;
+            background: linear-gradient(45deg, #000, #222);
+            color: var(--accent);
+            border: 2px solid var(--accent);
+            border-radius: 50px;
+            cursor: pointer;
+            font-family: 'Courier New', Courier, monospace;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 0 15px rgba(255, 140, 0, 0.4);
+            z-index: 10000;
+            transition: all 0.4s ease;
+        }
+
+        #cegonha-trigger:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 0 25px var(--accent);
+            background: var(--accent);
+            color: #000;
+        }
+    </style>
+</head>
+<body>
+
+    <canvas id="canvas-bg"></canvas>
+
+    <div class="container">
+        <h1>Minha alma meu espírito arte <br> Partilhado com Agnetha Fältskog</h1>
+        <p><img src="https://i.pinimg.com/736x/ea/14/df/ea14df97d641160776cda867e102bd66.jpg" class="main-img"></p>
+        
+        <h2>Minha música preferida</h2>
+        <a href="https://youtu.be/xsMouznJvuU?list=RDxsMouznJvuU" target="_blank" class="music-link">
+            <span style="color: #4CAF50; font-weight: bold;">ABBA - The Winner Takes It All</span><br>
+            <img src="https://i.pinimg.com/736x/32/46/99/3246997d19f8c6f7f9e8d6825e280dfa.jpg" class="music-img">
+        </a>
+    </div>
+
+    <button id="cegonha-trigger" onclick="transmutaLink()">⚡ TRANSMUTAR ADN DIGITAL</button>
+
+    <script>
+        // Efeito de partículas no fundo
+        const canvas = document.getElementById('canvas-bg');
+        const ctx = canvas.getContext('2d');
+        let particles = [];
+
+        function resize() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        window.onresize = resize;
+        resize();
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 2;
+                this.speedX = Math.random() * 0.5 - 0.25;
+                this.speedY = Math.random() * 0.5 - 0.25;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width) this.x = 0;
+                if (this.y > canvas.height) this.y = 0;
+            }
+            draw() {
+                ctx.fillStyle = 'rgba(139, 0, 139, 0.5)';
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) particles.push(new Particle());
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            particles.forEach(p => { p.update(); p.draw(); });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Função de Transmutação para Base64
+        function transmutaLink() {
+            try {
+                const docCopy = document.documentElement.outerHTML;
+                const b64 = btoa(unescape(encodeURIComponent(docCopy)));
+                const dataUrl = 'data:text/html;base64,' + b64;
+
+                navigator.clipboard.writeText(dataUrl).then(() => {
+                    const btn = document.getElementById('cegonha-trigger');
+                    btn.innerText = "✨ ADN COPIADO!";
+                    btn.style.borderColor = "#fff";
+                    
+                    setTimeout(() => {
+                        btn.innerText = "⚡ TRANSMUTAR ADN DIGITAL";
+                        btn.style.borderColor = "var(--accent)";
+                    }, 3000);
+                });
+            } catch (e) {
+                alert("Interferência na Matrix: " + e);
+            }
+        }
+    </script>
+</body>
+</html>
