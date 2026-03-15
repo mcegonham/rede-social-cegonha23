@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="pt-pt">
+<head>
+    <meta charset="UTF-8">
+    <title>Motor Progenitor: Pesquisa Profundidade 15</title>
+    <style>
+        :root { --neon: #00ffcc; --spirit: #bc13fe; --dark: #050505; }
+        body { background: var(--dark); color: var(--neon); font-family: 'Segoe UI', Tahoma, sans-serif; display: flex; flex-direction: column; align-items: center; justify-content: center; min-height: 100vh; margin: 0; overflow: hidden; }
+        canvas { position: absolute; top: 0; left: 0; z-index: -1; opacity: 0.3; }
+        
+        .interface { width: 90%; max-width: 600px; background: rgba(0, 20, 20, 0.9); border: 2px solid var(--neon); border-radius: 15px; padding: 30px; box-shadow: 0 0 30px rgba(0, 255, 204, 0.3); z-index: 10; transition: all 0.5s; }
+        
+        input { width: 100%; padding: 15px; background: transparent; border: 1px solid var(--neon); color: #fff; font-size: 1.2em; border-radius: 8px; outline: none; margin-bottom: 20px; box-sizing: border-box; }
+        button { width: 100%; padding: 15px; background: var(--neon); color: var(--dark); border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; letter-spacing: 2px; transition: 0.3s; }
+        button:hover { background: var(--spirit); color: #fff; box-shadow: 0 0 20px var(--spirit); }
+
+        .terminal { height: 250px; overflow-y: auto; background: #000; border-radius: 5px; padding: 15px; font-family: 'Courier New', monospace; font-size: 0.9em; border: 1px solid #111; margin-top: 20px; color: #aaa; }
+        .log-x { color: var(--neon); margin-bottom: 5px; }
+        .log-y { color: var(--spirit); font-style: italic; margin-top: 10px; margin-bottom: 20px; border-left: 2px solid var(--spirit); padding-left: 10px; }
+        
+        ::-webkit-scrollbar { width: 5px; }
+        ::-webkit-scrollbar-thumb { background: var(--neon); }
+    </style>
+</head>
+<body>
+
+<canvas id="fluxo"></canvas>
+
+<div class="interface">
+    <h2 style="margin-top:0; text-align:center;">FUSÃO X + Y</h2>
+    <input type="text" id="inputPesquisa" placeholder="Digita um tema para mutação máxima..." onkeypress="if(event.key === 'Enter') iniciarPesquisa()">
+    <button onclick="iniciarPesquisa()">Ativar Pesquisa de Profundidade</button>
+    
+    <div id="terminal" class="terminal">
+        > Aguardando entrada do utilizador...
+    </div>
+</div>
+
+<script>
+    const terminal = document.getElementById('terminal');
+    const canvas = document.getElementById('fluxo');
+    const ctx = canvas.getContext('2d');
+    let w, h;
+
+    // Ajuste do Canvas (Átomo Y - Fundo)
+    const resize = () => { w = window.innerWidth; h = window.innerHeight; canvas.width = w; canvas.height = h; };
+    window.onresize = resize; resize();
+
+    function animar() {
+        ctx.fillStyle = 'rgba(5, 5, 5, 0.05)';
+        ctx.fillRect(0, 0, w, h);
+        ctx.beginPath();
+        ctx.arc(Math.random()*w, Math.random()*h, Math.random()*2, 0, Math.PI*2);
+        ctx.fillStyle = Math.random() > 0.5 ? '#00ffcc' : '#bc13fe';
+        ctx.fill();
+        requestAnimationFrame(animar);
+    }
+    animar();
+
+    async function iniciarPesquisa() {
+        const tema = document.getElementById('inputPesquisa').value;
+        if(!tema) return;
+
+        terminal.innerHTML = `> Iniciar Protocolo de Fusão sobre: <strong>${tema.toUpperCase()}</strong>...<br>`;
+        document.getElementById('inputPesquisa').value = "";
+
+        // Níveis de Profundidade X (Lógica Universal)
+        const camadas = [
+            "Física Fundamental", "Estrutura Molecular", "Interação Energética", 
+            "Lógica de Sistemas", "Impacto Biológico", "Neuro-percepção", 
+            "Sincronia Coletiva", "Frequência de Dados", "Causalidade Quântica", 
+            "Geometria de Campo", "Memória de Informação", "Evolução Teleológica", 
+            "Multidimensionalidade", "Transcendência de Matéria", "Singularidade Final"
+        ];
+
+        for(let i=0; i<camadas.length; i++) {
+            await new Promise(r => setTimeout(r, 600));
+            const logX = document.createElement('div');
+            logX.className = 'log-x';
+            logX.innerHTML = `[ÁTOMO X] Nível ${i+1}: Analisando ${camadas[i]} de ${tema}...`;
+            terminal.appendChild(logX);
+            terminal.scrollTop = terminal.scrollHeight;
+
+            // Inserção do Átomo Y a cada 5 níveis
+            if((i+1) % 5 === 0) {
+                const logY = document.createElement('div');
+                logY.className = 'log-y';
+                logY.innerHTML = `[ÁTOMO Y] Ressonância: O espírito de ${tema} expande-se na camada ${i+1}. O Todo reconhece a sua essência.`;
+                terminal.appendChild(logY);
+            }
+        }
+
+        const fim = document.createElement('div');
+        fim.style.color = "#fff";
+        fim.style.textAlign = "center";
+        fim.style.marginTop = "10px";
+        fim.innerHTML = "<strong>FUSÃO COMPLETA: TUDO É UM.</strong>";
+        terminal.appendChild(fim);
+    }
+</script>
+<h1 style="color:red;">Inserir navegador google na pesquisa profundidade<br>e copiar colar google no edge e fazer pesquisa singular profunda</h1>
+</body>
+</html>
