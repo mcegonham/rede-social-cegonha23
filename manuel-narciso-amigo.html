@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>CEGONHA 23 | NÚCLEO VITAL</title>
+    <style>
+        body { background:#000; color:#0f0; font-family:monospace; text-align:center; padding:50px; overflow:hidden; }
+        .carro { position: absolute; top: -50px; font-size: 30px; z-index: -1; animation: queda linear infinite; }
+        @keyframes queda { to { transform: translateY(110vh) rotate(360deg); } }
+        .homenagem { font-size: 24px; color: #0af; text-shadow: 0 0 20px #0af; animation: brilho 2s infinite alternate; margin-top: 30px; }
+        @keyframes brilho { from { opacity: 0.5; transform: scale(1); } to { opacity: 1; transform: scale(1.1); } }
+        .controles { position: relative; z-index: 10; background: rgba(0,0,0,0.8); display: inline-block; padding: 20px; border: 1px solid #0f0; }
+        button { cursor: pointer; transition: 0.3s; }
+        button:hover { transform: scale(1.1); box-shadow: 0 0 15px #0f0; }
+    </style>
+</head>
+<body onload="chuvaDeCarros()">
+
+    <div class="controles">
+        <h1 style="text-shadow: 0 0 10px #0f0;">CEGONHA 23 : NÚCLEO VITAL</h1>
+        <p style="font-size:12px;opacity:0.7;">REPARAÇÃO QUÂNTICA DE INSPIRON ANTIGO</p>
+        <hr style="border:1px solid #0f0;width:80%;">
+        
+        <br>
+        <button onclick="f()" style="padding:20px;background:#0f0;color:#000;font-weight:bold;border:none;">
+            ⚡ FORÇAR REPARAÇÃO AGORA
+        </button>
+        
+        <br><br>
+        <button onclick="gerarServerLink()" style="padding:10px;background:#000;color:#0af;border:1px solid #0af;">
+            🔗 GERAR SERVER LINK (BASE64)
+        </button>
+
+        <div id="status" style="margin-top:20px;font-size:10px;color:#0af;"></div>
+        
+        <div class="homenagem">
+            ✨ MANUEL NARCISO ✨<br>
+            <small>UM MECÂNICO PORREIRO</small>
+        </div>
+    </div>
+
+    <script>
+        // Animação Espiritual: Carros a descerem do céu
+        function chuvaDeCarros() {
+            const carros = ["🚗", "🏎️", "🚕", "🚙", "🛻", "🚛"];
+            setInterval(() => {
+                const c = document.createElement("div");
+                c.className = "carro";
+                c.innerText = carros[Math.floor(Math.random() * carros.length)];
+                c.style.left = Math.random() * 100 + "vw";
+                c.style.animationDuration = (Math.random() * 3 + 2) + "s";
+                document.body.appendChild(c);
+                setTimeout(() => c.remove(), 5000);
+            }, 300);
+        }
+
+        function f() {
+            const c = "Stop-Service -Name SysMain, WSearch -Force; bcdedit /set {default} recoveryenabled No; bcdedit /set {default} bootstatuspolicy ignoreallfailures; Write-Host 'SISTEMA LIBERTADO! REINICIE O PC.' -ForegroundColor Green";
+            const b = new Blob([c], {type:'text/plain'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = 'reparo.ps1';
+            a.click();
+            document.getElementById('status').innerText = "SCRIPT 'reparo.ps1' GERADO! EXECUTE-O COM POWERSHELL.";
+        }
+
+        function gerarServerLink() {
+            const htmlAtual = document.documentElement.outerHTML;
+            const base64 = btoa(unescape(encodeURIComponent(htmlAtual)));
+            const superLink = "data:text/html;base64," + base64;
+            const el = document.createElement('textarea');
+            el.value = superLink;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            document.getElementById('status').innerHTML = "⚡ SERVER LINK BASE64 COPIADO!";
+            alert("LINK REAL VITALÍCIO COPIADO!");
+        }
+    </script>
+</body>
+</html>
