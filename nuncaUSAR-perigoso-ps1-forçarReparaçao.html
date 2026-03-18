@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+<head><title>CEGONHA 23 | NÚCLEO VITAL</title></head>
+<body style="background:#000;color:#0f0;font-family:monospace;text-align:center;padding:50px;">
+    <h1 style="text-shadow: 0 0 10px #0f0;">CEGONHA 23 : NÚCLEO VITAL</h1>
+    <p style="font-size:12px;opacity:0.7;">REPARAÇÃO QUÂNTICA DE INSPIRON ANTIGO</p>
+    <hr style="border:1px solid #0f0;width:50%;">
+    
+    <br>
+    <button onclick="f()" style="padding:20px;background:#0f0;color:#000;font-weight:bold;cursor:pointer;border:none;">
+        ⚡ FORÇAR REPARAÇÃO AGORA
+    </button>
+    
+    <br><br>
+    <button onclick="gerarServerLink()" style="padding:10px;background:#000;color:#0af;border:1px solid #0af;cursor:pointer;">
+        🔗 GERAR SERVER LINK (BASE64)
+    </button>
+
+    <div id="status" style="margin-top:20px;font-size:10px;color:#0af;"></div>
+
+    <script>
+        // Função 1: Gerar Script PowerShell de Reparação
+        function f() {
+            const c = "Stop-Service -Name SysMain, WSearch -Force; bcdedit /set {default} recoveryenabled No; bcdedit /set {default} bootstatuspolicy ignoreallfailures; Write-Host 'SISTEMA LIBERTADO! REINICIE O PC.' -ForegroundColor Green";
+            const b = new Blob([c], {type:'text/plain'});
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(b);
+            a.download = 'reparo.ps1';
+            a.click();
+            document.getElementById('status').innerText = "SCRIPT 'reparo.ps1' GERADO! EXECUTE-O COM POWERSHELL.";
+        }
+
+        // Função 2: Gerar Server Link Base64 (O PC clona-se a si próprio)
+        function gerarServerLink() {
+            const htmlAtual = document.documentElement.outerHTML;
+            // Converte o código da página inteira para Base64
+            const base64 = btoa(unescape(encodeURIComponent(htmlAtual)));
+            const superLink = "data:text/html;base64," + base64;
+            
+            // Copia para a área de transferência (Clipboard)
+            const el = document.createElement('textarea');
+            el.value = superLink;
+            document.body.appendChild(el);
+            el.select();
+            document.execCommand('copy');
+            document.body.removeChild(el);
+            
+            document.getElementById('status').innerHTML = "⚡ SERVER LINK BASE64 COPIADO!<br><small style='word-break:break-all;'>" + superLink.substring(0, 50) + "...</small>";
+            alert("LINK REAL VITALÍCIO COPIADO! Podes colar em qualquer navegador.");
+        }
+    </script>
+</body>
+</html>
