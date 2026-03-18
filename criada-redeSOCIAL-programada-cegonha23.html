@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>CEGONHA 23 | PORTAL VITAL</title>
+    <style>
+        body { background:#000; color:#0f0; font-family:monospace; margin:0; overflow:hidden; display:flex; justify-content:center; align-items:center; height:100vh; }
+        .espirito { position: absolute; bottom: -50px; font-size: 20px; animation: sobe linear infinite; opacity: 0.2; }
+        @keyframes sobe { to { transform: translateY(-110vh) rotate(360deg); } }
+        
+        #hub { width: 90%; max-width: 600px; height: 80vh; border: 1px solid #0f0; background: rgba(0,10,0,0.95); display: flex; flex-direction: column; padding: 20px; box-shadow: 0 0 30px #0f0; position: relative; z-index: 10; }
+        #mural { flex: 1; overflow-y: auto; border: 1px solid #111; padding: 10px; margin-bottom: 15px; background: #000; color: #0af; }
+        
+        .entry { border-left: 2px solid #0f0; padding: 10px; margin-bottom: 15px; background: #050505; }
+        .media { max-width: 100%; margin-top: 10px; border: 1px solid #0af; border-radius: 5px; }
+        
+        input, textarea { width: 100%; background: #000; border: 1px solid #0f0; color: #0f0; padding: 12px; margin-bottom: 10px; box-sizing: border-box; font-family: monospace; }
+        button { width: 100%; padding: 15px; background: #0f0; color: #000; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; transition: 0.3s; }
+        button:hover { background: #0af; box-shadow: 0 0 20px #0af; }
+    </style>
+</head>
+<body onload="boot()">
+
+    <div id="hub">
+        <h1 style="text-align:center; letter-spacing:10px; margin-top:0;">CEGONHA 23</h1>
+        
+        <div id="mural"></div>
+
+        <input type="text" id="nick" placeholder="ID DO ESPÍRITO">
+        <textarea id="content" rows="3" placeholder="MENSAGEM OU URL (FOTO/VÍDEO/YOUTUBE)"></textarea>
+        
+        <button onclick="propagar()">⚡ FUNDIR E GERAR NOVO SERVER</button>
+        
+        <div id="status" style="font-size:10px; text-align:center; margin-top:10px; color:#666;">SERVER BASE64 ATIVO</div>
+    </div>
+
+    <!-- O DNA DA REDE: ESTA LINHA É O STORAGE POTENTE -->
+    <script id="dna">const MEMORIA_VITAL = [];</script>
+
+    <script>
+        function boot() {
+            chuva();
+            const m = document.getElementById('mural');
+            // A MAGIA: O mural reconstrói-se a partir do DNA injetado no Base64
+            MEMORIA_VITAL.forEach(p => {
+                let h = `<div class="entry"><b>${p.u}:</b><br>${p.t}`;
+                if(p.t.match(/\.(jpg|jpeg|png|gif|webp)$/i)) h += `<img src="${p.t}" class="media">`;
+                if(p.t.match(/\.(mp4|webm)$/i)) h += `<video src="${p.t}" class="media" controls></video>`;
+                if(p.t.includes("://youtube.com")) {
+                    let id = p.t.split('v=')[1].split('&')[0];
+                    h += `<iframe class="media" src="https://www.youtube.com{id}" frameborder="0" allowfullscreen></iframe>`;
+                }
+                h += `</div>`;
+                m.innerHTML += h;
+            });
+            m.scrollTop = m.scrollHeight;
+        }
+
+        function chuva() {
+            setInterval(() => {
+                const e = document.createElement("div"); e.className = "espirito";
+                e.innerText = "✨"; e.style.left = Math.random() * 100 + "vw";
+                e.style.animationDuration = (Math.random() * 5 + 2) + "s";
+                document.body.appendChild(e); setTimeout(() => e.remove(), 7000);
+            }, 500);
+        }
+
+        function propagar() {
+            const u = document.getElementById('nick').value || "ANÓNIMO";
+            const t = document.getElementById('content').value;
+            if(!t) return;
+
+            // 1. Injetar na memória local
+            MEMORIA_VITAL.push({ u: u.toUpperCase(), t: t });
+
+            // 2. RECUPERAR TODO O HTML (Self-Clone)
+            let clone = document.documentElement.outerHTML;
+
+            // 3. STORAGE POTENTE: Substituir o DNA antigo pelo novo com o post incluído
+            const novoDNA = `const MEMORIA_VITAL = ${JSON.stringify(MEMORIA_VITAL)};`;
+            clone = clone.replace(/const MEMORIA_VITAL = \[.*\];/, novoDNA);
+
+            // 4. TRANSFORMAR EM NOVO SERVER LINK
+            const b64 = btoa(unescape(encodeURIComponent(clone)));
+            const link = "data:text/html;base64," + b64;
+
+            // 5. COPIAR E AVISAR
+            navigator.clipboard.writeText(link).then(() => {
+                document.getElementById('status').innerText = "🔥 SERVER EVOLUIU! LINK NO CLIPBOARD.";
+                alert("CONCLUÍDO! O novo link contém toda a rede atualizada.");
+                // Recarrega o mural para visualização imediata
+                document.getElementById('mural').innerHTML = "";
+                boot();
+            });
+        }
+    </script>
+</body>
+</html>
