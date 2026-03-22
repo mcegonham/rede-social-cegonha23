@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <title>CEGONHA 23 | ANJO VITAL</title>
+    <style>
+        body { background:#000; color:#0f0; font-family:monospace; margin:0; overflow:hidden; display:flex; justify-content:center; align-items:center; height:100vh; }
+        #hub { width: 90%; max-width: 600px; height: 85vh; border: 1px solid #0f0; background: rgba(0,5,0,0.9); display: flex; flex-direction: column; padding: 20px; box-shadow: 0 0 20px #0f0; z-index: 10; position: relative; }
+        #mural { flex: 1; overflow-y: auto; border: 1px solid #111; padding: 10px; margin-bottom: 15px; background: #000; color: #0af; }
+        .entry { border-left: 2px solid #0f0; padding: 10px; margin-bottom: 10px; background: #050505; word-break: break-all; }
+        input, textarea { width: 100%; background: #000; border: 1px solid #0f0; color: #0f0; padding: 10px; margin-bottom: 5px; font-family: monospace; outline: none; }
+        button { width: 100%; padding: 15px; background: #0f0; color: #000; border: none; font-weight: bold; cursor: pointer; text-transform: uppercase; }
+        video, img { max-width: 100%; margin-top: 10px; border: 1px solid #0af; display: block; }
+        
+        /* Estilo do Anjo */
+        #anjo { position: fixed; pointer-events: none; z-index: 999; filter: drop-shadow(0 0 5px #0f0); transition: transform 0.1s ease-out; }
+    </style>
+</head>
+<body onload="boot()">
+
+    <!-- ANJO GUARDIÃO SVG -->
+    <div id="anjo">
+        <svg width="50" height="50" viewBox="0 0 100 100">
+            <path d="M50 50 Q20 10 10 40 Q5 70 50 80 Z" fill="rgba(0,255,150,0.4)" />
+            <path d="M50 50 Q80 10 90 40 Q95 70 50 80 Z" fill="rgba(0,255,150,0.4)" style="transform-origin:50% 50%; transform:scaleX(-1);" />
+            <circle cx="50" cy="45" r="5" fill="#0f0" />
+        </svg>
+    </div>
+
+    <div id="hub">
+        <h2 style="text-align:center; margin:0 0 10px 0;">CEGONHA 23</h2>
+        <div id="mural"></div>
+        <input type="text" id="nick" placeholder="ID ESPÍRITO">
+        <textarea id="content" rows="3" placeholder="MSG, LINK IMAGEM OU VÍDEO (.mp4)"></textarea>
+        <button onclick="propagar()">⚡ FUNDIR E GERAR NOVO SERVER</button>
+        <div id="status" style="font-size:10px; text-align:center; margin-top:10px; color:#444;">ANJO ATIVO | VÍDEO ENGINE ON</div>
+    </div>
+
+    <script id="dna">const MEMORIA = [];</script>
+
+    <script>
+        // --- MOTOR DO ANJO ---
+        window.onmousemove = (e) => {
+            const anjo = document.getElementById('anjo');
+            anjo.style.left = (e.clientX - 25) + 'px';
+            anjo.style.top = (e.clientY - 25) + 'px';
+        };
+
+        function boot() {
+            const m = document.getElementById('mural');
+            m.innerHTML = "";
+            MEMORIA.forEach(p => {
+                let media = "";
+                // Detecção de Vídeo Real
+                if(p.t.match(/\.(mp4|webm|ogg)/i)) {
+                    media = `<video src="${p.t}" controls autoplay muted loop></video>`;
+                } 
+                // Detecção de Imagem
+                else if(p.t.match(/\.(jpg|jpeg|png|gif|webp)/i) || p.t.startsWith("data:image")) {
+                    media = `<img src="${p.t}">`;
+                }
+                m.innerHTML += `<div class="entry"><b>${p.u}:</b><br>${p.t}${media}</div>`;
+            });
+            m.scrollTop = m.scrollHeight;
+        }
+
+        function propagar() {
+            const u = document.getElementById('nick').value || "ANON";
+            const t = document.getElementById('content').value;
+            if(!t) return;
+
+            MEMORIA.push({ u: u.toUpperCase(), t: t });
+            document.getElementById('dna').textContent = `const MEMORIA = ${JSON.stringify(MEMORIA)};`;
+            
+            const html = "<!DOCTYPE html>\n<html>" + document.documentElement.innerHTML + "</html>";
+            const b64 = btoa(unescape(encodeURIComponent(html)));
+            const link = "data:text/html;base64," + b64;
+
+            navigator.clipboard.writeText(link).then(() => {
+                document.getElementById('status').innerText = "🔥 NOVO MUNDO NO SEU CTRL+V!";
+                boot();
+            });
+        }
+    </script>
+</body>
+</html>
